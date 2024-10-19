@@ -1,4 +1,4 @@
--- script create a procedure that computes and updates average score
+-- Script create a procedure that computes and updates average score
 DELIMITER $$
 
 CREATE PROCEDURE ComputeAverageScoreForUser(IN user_id INT)
@@ -16,4 +16,4 @@ BEGIN
     WHERE id = user_id;
 END $$
 
-DELIMITER;
+DELIMITER ;
