@@ -1,0 +1,5 @@
+// Creates or switches to 'my_db'
+
+db = db.getSiblingDB('my_db');
+print("switched to db " + db.getName());
+
