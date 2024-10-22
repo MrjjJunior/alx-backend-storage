@@ -1,5 +1,7 @@
 // connects to the MongoDb and shows all databases
 
-db.adminCommand('listDatabases').databases.forEach(function(db) {
-    print(db.name + "\t" + db.sizeOnDisk / 1024 / 1024 + "GB");
-});
+// db.adminCommand('listDatabases').databases.forEach(function(db) {
+//    print(db.name + "\t" + db.sizeOnDisk / 1024 / 1024 + "GB");
+// });
+
+show dbs;
