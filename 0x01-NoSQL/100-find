@@ -1,0 +1,5 @@
+// script lists all documents
+
+db.school.find(
+  { name: { $regex: '^Holberton', $options: 'i' } }
+).forEach(printjson)

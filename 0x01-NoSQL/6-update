@@ -1,0 +1,9 @@
+// script that adds a new attribute to a document in the collection schoo
+
+db = db.getSiblingDB("my_db");
+
+db.school.updateMany(
+    { name: "Holberton school" },
+    { $set: { address: "972 Mission street" } }
+);
+ 
