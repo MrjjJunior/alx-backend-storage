@@ -1,13 +1,5 @@
 // insersts doc into collection
 
-//var dbName = db.getName();
-//if (dbName) {
-//    db = db.getSiblingDB(dbName);
-//}
-
 db.school.insert({
     name: "Holberton school"
 });
-
-//print("WriteResult({ \"nInserted\" : 1 })");
-
