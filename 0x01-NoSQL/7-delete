@@ -1,8 +1,5 @@
 // deletes docs where name is Holberton school
 
-db = db.getSiblingDB("my_db");;
-
 db.school.deleteMany(
     { name: "Holberton school" }
 );
-
