@@ -1,0 +1,6 @@
+// lists thre number of documents
+
+db = db.getSiblingDB("<DTATBASE_NAME>");
+print(db.school.count());
+
+
