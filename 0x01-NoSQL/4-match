@@ -1,0 +1,5 @@
+// Lists all documents with name holberton school in collection school
+
+db = db.getSiblingDB("<DATABASE_NAME>");
+db.school.find({ "name": "Holberton school" }).forEach(printjson);
+
