@@ -1,6 +1,3 @@
 // lists thre number of documents
 
-db = db.getSiblingDB("my_db");
-print(db.school.count());
-
-
+db.school.count()
