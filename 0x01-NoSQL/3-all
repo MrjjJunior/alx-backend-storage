@@ -1,0 +1,5 @@
+// Lists all documents in a collection
+
+db = db.getSiblingDB("my_db");
+db.school.find().forEach(printjson);
+
