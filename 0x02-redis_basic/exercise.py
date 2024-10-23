@@ -10,17 +10,13 @@ from typing import Any, Callable,  Optional, Union
 
 def call_history(method: Callable) -> Callable:
     def wrapper(self, *args, **kwargs) -> Any:
-        # Create input and output list keys
         input_key = f"{method.__qualname__}:inputs"
         output_key = f"{method.__qualname__}:outputs"
         
-        # Normalize and store the input arguments
         self._redis.rpush(input_key, str(args))
         
-        # Call the original method and get the output
         output = method(self, *args, **kwargs)
         
-        # Store the output in the outputs list
         self._redis.rpush(output_key, output)
         
         return output
@@ -38,6 +34,18 @@ def count_calls(method: Callable) -> Callable:
         return method(self, *args, **kwargs)
     return wrapper
 
+def replay(fn: Callable) -> None:
+    """Display the history of calls of a function."""
+    input_key = f"{fn.__qualname__}:inputs"
+    output_key = f"{fn.__qualname__}:outputs"
+    
+    inputs = fn.__self__._redis.lrange(input_key, 0, -1)
+    outputs = fn.__self__._redis.lrange(output_key, 0, -1)
+
+    print(f"{fn.__qualname__} was called {len(inputs)} times:")
+
+    for input_val, output_val in zip(inputs, outputs):
+        print(f"{fn.__qualname__}(*{input_val.decode()}) -> {output_val.decode()}")
 
 class Cache:
     '''  '''
@@ -82,16 +90,6 @@ def get(self, key: str, fn: Optional[Callable] = None) -> Any:
         '''  '''
         return int(data)
     
-
-#    def count_calls(self, methods: Callabe) -> Callable:
-#        '''  '''
-#        @wraps(method)
-#        def wrapper(self: Any, *args, **kwargs) -> str:
-#            '''  '''
-#            self.redis.incr(method.__qualname__)
-#            return method(self, *args, **kwargs)
-#        return wrapper
-
 
 def count_calls(method: Callable) -> Callable:
     """ call count
