@@ -42,4 +42,37 @@ class Cache:
         return key
 
     
+def get(self, key: str, fn: Optional[Callable] = None) -> Any:
+    '''  '''
+    client = self._redis
+    value = client.get(key)
+
+    if not value:
+        return
+    if fn is int:
+        return self.get_int(value)
+    if fn is str:
+        return self.get_str(value)
+    if callable(fn):
+        return fn(value)
+    return value
+
+
+    def get_str(self, data: bytes) -> str:
+        '''  '''
+        return data.decode("UTF-8")
     
+
+    def get_int(self, data: bytes) -> str:
+        '''  '''
+        return int(data)
+    
+
+    def count_calls(self, methods: Callabe) -> Callable:
+        '''  '''
+        @wraps(method)
+        def wrapper(self: Any, *args, **kwargs) -> str:
+            '''  '''
+            self.redis.incr(method.__qualname__)
+            return method(self, *args, **kwargs)
+        return wrapper
