@@ -1,23 +1,6 @@
 #!/usr/bin/env python3
 """ Redis script that returns a random key """
-#from redis import Redis, redis
-'''
-import redis
-import random
-import uuid
-from typing import Union
 
-
-class Cache:
-    def __init__(self) -> None:
-        self._redis = redis.Redis()
-        self._redis.flushdb()
-
-    def store(self, data: Union[str, bytes, int, float]) -> str:
-        key = str(uuid.uuid4())
-        self._redis.set(key, data)
-        return key
-'''
 
 import redis 
 from uuid import uuid4
@@ -68,11 +51,23 @@ def get(self, key: str, fn: Optional[Callable] = None) -> Any:
         return int(data)
     
 
-    def count_calls(self, methods: Callabe) -> Callable:
-        '''  '''
-        @wraps(method)
-        def wrapper(self: Any, *args, **kwargs) -> str:
-            '''  '''
-            self.redis.incr(method.__qualname__)
-            return method(self, *args, **kwargs)
-        return wrapper
+#    def count_calls(self, methods: Callabe) -> Callable:
+#        '''  '''
+#        @wraps(method)
+#        def wrapper(self: Any, *args, **kwargs) -> str:
+#            '''  '''
+#            self.redis.incr(method.__qualname__)
+#            return method(self, *args, **kwargs)
+#        return wrapper
+
+
+def count_calls(method: Callable) -> Callable:
+    """ call count
+    """
+    @wraps(method)
+    def wrapper(self: Any, *args, **kwargs) -> str:
+        """ Wrapping called method
+        """
+        self._redis.incr(method.__qualname__)
+        return method(self, *args, **kwargs)
+    return wrapper
