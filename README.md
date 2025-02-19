@@ -1,1 +1,3 @@
-Storage mysql for backend
+# Storage mysql for backend
+
+Repo is for learning about Database 
